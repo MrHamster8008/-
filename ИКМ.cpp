@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <string>
 #include <vector>
 using namespace std;
@@ -43,8 +43,6 @@ string vvod(string a) { // функция для ввода чисел и про
 				while (a.size() < b.size()) {
 					a += "0";
 				}
-				if (a[0] == '-')
-					a += "0";
 				cout << "Готово!\n";
 				i = 0;
 			}
@@ -100,7 +98,7 @@ string slozenie(string a, string b) { // сложение чисел
 	}
 	while (chto_bolshe(a, b) == 1) {
 		tempb = mnogb;
-		for (int i = b.size() - 1; i >= 0; i--) {
+		for (int i = newb.size() - 1; i >= 0; i--) {
 			cur = newb[i] + mnogb[i+1] + nextplus;
 			if (cur >= 10) {
 				nextplus = 1;
@@ -124,16 +122,15 @@ string slozenie(string a, string b) { // сложение чисел
 				b += to_string(mnogb[i]);
 		}
 	}
-	mnogb = tempb;
 	nextplus = 0;
 	cur = 0;
-	for (int i = newa.size()-1; i >= 0; i--) {
-		if (newa[i] - nextplus < mnogb[i]) {
-			cur = newa[i] - nextplus + 10 - mnogb[i];
+	for (int i = tempb.size()-1; i > 0; i--) {
+		if (newa[i] - nextplus < tempb[i-1]) {
+			cur = newa[i] - nextplus + 10 - tempb[i-1];
 			nextplus = 1;
 		}
 		else {
-			cur = newa[i] - nextplus - mnogb[i];
+			cur = newa[i] - nextplus - tempb[i-1];
 			nextplus = 0;
 		}
 		newa[i] = cur;
@@ -161,7 +158,7 @@ string del(string a, string b) { // деление чисел и поиска о
 	else if (bolshe == 1) {
 		while (a.size() >= b.size() and flag) {
 			if (chto_bolshe(a.substr(0, schet), b) == 1) { 
-				ost = slozenie(a.substr(0,b.size()), b);
+				ost = slozenie(a.substr(0,schet), b);
 				a.replace(0, schet, ost);
 				schet = 0;
 			}
